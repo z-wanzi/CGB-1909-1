@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cy.pj.vhr.dao.VhrSalaryDao">
+  <!-- 设置工资账套 -->
+  <insert id="salaryInsert" parameterType="com.cy.pj.vhr.entity.VhrSalary">
+  insert into salary(basicSalary,bonus,lunchSalary,trafficSalary,allSalary,
+  pensionBase,pensionPer,medicalBase,medicalPer,accumulationFundBase,
+  accumulationFundPer,name)
+  values(#{basicSalary},#{bonus},#{lunchSalary},#{trafficSalary},
+  #{allSalary},#{pensionBase},#{pensionPer},#{medicalBase},
+  #{medicalPer},#{accumulationFundBase},#{accumulationFundPer},#{name})
+  </insert>
+  </mapper>

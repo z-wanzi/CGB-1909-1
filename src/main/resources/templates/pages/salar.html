@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<template>
+ <div class="boxShadow">
+ <div style="margin-top: 20px">
+  
+ <el-table
+ :data="tables"
+ ref="multipleTable"
+ tooltip-effect="dark"
+ style="width: 100%"
+ @selection-change='selectArInfo'>
+ <el-table-column type="selection" width="45px"></el-table-column>
+ <el-table-column label="序号" width="62px" type="index">
+ </el-table-column>
+ <template v-for='(col) in tableData'>
+  <el-table-column
+  sortable
+  :show-overflow-tooltip="true"
+  :prop="col.dataItem"
+  :label="col.dataName"
+  :key="col.dataItem"
+  width="124px">
+  </el-table-column>
+ </template>
+ <el-table-column label="操作" width="80" align="center">
+  <template slot-scope="scope">
+  <el-button size="mini" class="del-com" @click="delTabColOne()" ><i class="iconfont icon-shanchu"></i></el-button>
+  </template>
+ </el-table-column>
+ </el-table>
+  
+  
+ </div>
+ </div>
+  
+</template>
+</body>
+</html>

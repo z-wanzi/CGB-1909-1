@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <el-container>
+            <el-aside width="200px" >
+                <el-menu :default-openeds="['1', '3']"
+                >
+                    <el-submenu index="1">
+                        <template slot="title"><i class="el-icon-emp"></i>员工管理</template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">个人信息</el-menu-item>
+                            <el-menu-item index="1-2">员工信息 </el-menu-item>
+                            <el-menu-item index="1-3">选项3</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="1-4">
+                            <template slot="title">选项4</template>
+                            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+                        </el-submenu>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title"><i class="el-icon-dep"></i>部门管理</template>
+                        <el-menu-item-group>
+                            <el-menu-item index="2-1">部门成员</el-menu-item>
+                            <el-menu-item index="2-2">工作任务</el-menu-item>
+                             <el-menu-item index="2-3">会议记录</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="2-4">
+                            <template slot="title">选项4</template>
+                            <el-menu-item index="2-4-1">选项4-1</el-menu-item>
+                        </el-submenu>
+                    </el-submenu>
+                <el-submenu index="3">
+                        <template slot="title"><i class="el-icon-hr"></i>人事管理</template>
+                        <el-menu-item-group>
+                            <el-menu-item index="3-1">员工调动</el-menu-item>
+                            <el-menu-item index="3-2">员工培训 </el-menu-item>
+                            <el-menu-item index="3-3">员工资料</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="1-4">
+                            <template slot="title">选项4</template>
+                            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+                        </el-submenu>
+                    </el-submenu>
+                 <el-submenu index="4">
+                        <template slot="title"><i class="el-icon-salary"></i>薪资管理</template>
+                        <el-menu-item-group>
+                            <el-menu-item index="4-1">工资卡信息</el-menu-item>
+                            <el-menu-item index="4-2">工资表管理</el-menu-item>
+                            <el-menu-item index="4-3">奖金绩效</el-menu-item>
+                             <el-menu-item index="4-4">考勤奖惩</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="1-4">
+                            <template slot="title">选项4</template>
+                            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+                        </el-submenu>
+                 </el-submenu>
+                <el-submenu index="5">
+                        <template slot="title"><i class="el-icon-system"></i>系统管理</template>
+                        <el-menu-item-group>
+                            <el-menu-item index="5-1">基础信息设置</el-menu-item>
+                            <el-menu-item index="5-2">操作日志</el-menu-item>
+                            <el-menu-item index="5-3">系统管理</el-menu-item>
+                            <el-menu-item index="5-4">数据库备份恢复</el-menu-item>
+                            <el-menu-item index="5-5">管理员管理</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="5-6">
+                            <template slot="title">选项6</template>
+                            <el-menu-item index="1">选项6-1</el-menu-item>
+                        </el-submenu>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+
+            <el-container>
+                <el-header style="text-align: right; font-size: 12px">
+                    <el-dropdown>
+                        <i class="el-icon-setting" style="margin-right: 15px"></i>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>查看</el-dropdown-item>
+                            <el-dropdown-item>新增</el-dropdown-item>
+                            <el-dropdown-item>修改</el-dropdown-item>
+                            <el-dropdown-item>删除</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <span>王小虎</span>
+                </el-header>
+
+                <el-main>
+                    <el-table :data="tableData" style="width: 100%" max-height="100%">
+                        <el-table-column fixed prop="date" label="日期" width="150">
+                        </el-table-column>
+                        <el-table-column prop="name" label="姓名" width="120">
+                        </el-table-column>
+                        <el-table-column prop="province" label="省份" width="120">
+                        </el-table-column>
+                        <el-table-column prop="city" label="市区" width="120">
+                        </el-table-column>
+                        <el-table-column prop="address" label="地址" width="300">
+                        </el-table-column>
+                        <el-table-column prop="zip" label="邮编" width="120">
+                        </el-table-column>
+                        <el-table-column fixed="right" label="操作" width="120">
+                            <template slot-scope="scope" style="text-align: left">
+                                <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"  type="text"
+                                    size="small">
+                                    移除
+                                </el-button>
+                                <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text"
+                                    size="small">
+                                </el-button>
+                                <el-button @click.native.prevent="update(scope.$index, tableData)" type="text"
+                                    size="small">
+                                    修改
+                                </el-button>
+                                <el-button @click.native.prevent="add(scope.$index, tableData)" type="text"
+                                    size="small">
+                                    添加
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                        
+                    </el-table>
+                </el-main>
+               <!--  <el-steps :active="0" align-center>
+                        <el-step title="步骤1" description="将左侧导航的字段换成你需要的字段"></el-step>
+                        <el-step title="步骤2" description="将中间表头换成你需要的表头"></el-step>
+                        <el-step title="步骤3" description="将表格内的信息换成你所需要的信息"></el-step>
+                        <el-step title="步骤4" description="增加操作"></el-step>
+                      </el-steps> -->
+            </el-container>
+           
+        
+        </el-container>
+       
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+
+                return {
+                    item: {
+                        title: '标题',
+                        item: {
+                            date: '2016-05-02',
+                            name: '王小虎',
+                            address: '上海市普陀区金沙江路 1518 弄'
+                        }
+                    },
+                    active: 0,
+                    tableData: [{
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-08',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-06',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }, {
+                        date: '2016-05-07',
+                        name: '王小虎',
+                        province: '上海',
+                        city: '普陀区',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        zip: 200333
+                    }]
+                }
+            },
+            methods: {
+                deleteRow(index, rows) {
+                    rows.splice(index, 1);
+                },
+                update(){},
+                add(){},
+                next() {
+                    if (this.active++ > 2) this.active = 0;
+                }
+            },
+
+        })
+    </script>
+    <style scoped>
+        .el-header {
+            height: 60px;
+            font-size: 20px;
+            line-height: 60px;
+            color: #333;
+            background-color: #b3c0d1;
+        }
+
+        .el-container {
+            height: 100% ;
+        }
+
+        .el-aside {
+            height: 100vh;
+        }
+
+        .el-menu {
+            background: #b3c0d1;;
+            height: 100%;
+        }
+        .el-button+.el-button {
+            margin-left: 2px;
+        }
+    </style>
+</body>
+
+</html>
